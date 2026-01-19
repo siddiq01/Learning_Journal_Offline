@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5" style="max-width: 1200px; margin-bottom: 100px;">
+    
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'moderation_queue' %}" style="text-decoration: none; color: var(--primary-green); font-weight: 600;">
+            ← Back to Moderation Queue
+        </a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 350px; gap: 40px; align-items: start;">
+        
+        <div class="review-main">
+            <header style="margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 20px;">
+                <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px;">
+                    {{ topic.title }}
+                </h1>
+                <div style="display: flex; gap: 20px; color: #666; font-size: 0.95rem;">
+                    <span><strong>Author:</strong> {{ topic.author.username }}</span>
+                    <span><strong>Subject:</strong> {{ topic.subject.name }}</span>
+                    <span><strong>Submitted:</strong> {{ topic.created_at|date:"M d, Y" }}</span>
+                </div>
+            </header>
+
+            <article class="content-preview" style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); line-height: 1.6; color: #333;">
+                {{ topic.content|safe }}
+            </article>
+        </div>
+
+        <aside style="position: sticky; top: 100px; background: #f8f9fa; padding: 25px; border-radius: 12px; border: 1px solid #e9ecef;">
+            <h3 style="margin-bottom: 20px; font-weight: 700;">Moderation Panel</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">
+                Carefully review the content for accuracy and formatting before publishing.
+            </p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">
+                        Feedback / Rejection Notes
+                    </label>
+                    <textarea 
+                        name="feedback" 
+                        placeholder="If requesting changes, explain what needs to be fixed..." 
+                        style="width: 100%; height: 150px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; resize: none; margin-bottom: 15px;"
+                    ></textarea>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button type="submit" formaction="{% url 'approve_topic' topic.pk %}" 
+                        style="background: #28a745; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        ✅ Approve & Publish
+                    </button>
+                    
+                    <button type="submit" formaction="{% url 'reject_topic' topic.pk %}" 
+                        style="background: #fff; color: #dc3545; border: 2px solid #dc3545; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer;">
+                        ❌ Request Changes
+                    </button>
+                </div>
+            </form>
+            
+            <hr style="margin: 25px 0; border: none; border-top: 1px solid #ddd;">
+            <div style="font-size: 0.8rem; color: #999; text-align: center;">
+                Status: <strong>Pending Review</strong>
+            </div>
+        </aside>
+
+    </div>
+</div>
+{% endblock %}

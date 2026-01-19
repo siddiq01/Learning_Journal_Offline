@@ -1,0 +1,1149 @@
+/* ==========================================================================
+   GLOBAL THEME & GEEK LAYOUT (FULL INTEGRATED CSS)
+   ========================================================================== */
+:root {
+  /* Global Light Mode Variables */
+  --primary-green: #2f8d46;
+  --dark-green: #1e5a2d;
+  --border-gray: #e0e0e0;
+  --text-main: #333333;
+  --bg-main: #ffffff;
+  --sidebar-bg: #ffffff;
+  --header-height: 70px;
+  --sidebar-width: 280px;
+  --dropdown-bg: #ffffff;
+}
+
+/* Global Dark Mode Overrides */
+body.dark-mode {
+  --bg-main: #1a1b1e;
+  --text-main: #e0e0e0;
+  --border-gray: #373a40;
+  --sidebar-bg: #1a1b1e;
+  --primary-green: #40c057;
+  --dropdown-bg: #2c2e33;
+}
+
+/* 🟢 LEARNING CARDS STYLES */
+.learning-card {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    padding: 20px;
+    color: var(--text-main); 
+    transition: transform 0.2s, background 0.3s;
+    display: block;
+    text-decoration: none;
+}
+
+/* 🟢 TITLE GREEN COLOR FIX */
+.learning-card h3, 
+.learning-card h3 a, /* Target the link directly */
+.learning-card .card-title {
+    color: var(--primary-green) !important;
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+/* 🟢 DARK MODE OVERRIDES */
+body.dark-mode .learning-card {
+    background-color: #4e535f; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Keep the title bright green even in dark mode */
+body.dark-mode .learning-card h3,
+body.dark-mode .learning-card h3 a,
+body.dark-mode .learning-card .card-title {
+    color: var(--primary-green) !important;
+}
+
+/* Optional: Slight hover effect for the title link */
+.learning-card h3 a:hover {
+    text-decoration: underline;
+    filter: brightness(1.2);
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 🟢 HEADER & NAVIGATION */
+.site-header {
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--border-gray);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: var(--header-height);
+  
+}
+
+.header-flex {
+  display: flex;
+  align-items: center;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+}
+
+.logo a {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary-green);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Desktop Navigation container */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-left: 40px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* 🟢 SUBJECT DROPDOWN FIX */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-trigger {
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-main);
+}
+
+
+/* .dropdown:hover .dropdown-content {
+  display: block;
+} */
+
+.dropdown-content a {
+  color: var(--text-main);
+  padding: 8px 16px;
+  text-decoration: none;
+  display: block;
+  font-weight: 500;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--primary-green);
+  color: white;
+}
+
+/* 🟢 SEARCH BAR */
+.nav-search {
+  display: flex;
+  border: 1px solid var(--border-gray);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-main);
+  margin-left: 20px;
+}
+
+.nav-search input {
+  border: none;
+  padding: 8px 12px;
+  outline: none;
+  width: 180px;
+  background: transparent;
+  color: var(--text-main);
+}
+
+.nav-search button {
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 0 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* 🟢 HEADER CONTROLS: Far right corner */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto; /* This forces the group to the right edge */
+}
+
+.control-btn, .menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--primary-green);
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+/* 🟢 GEEK SIDEBAR: Reverted */
+.page-layout {
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.left-sidebar {
+  width: var(--sidebar-width);
+  border-right: 1px solid var(--border-gray);
+  padding: 30px 20px;
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  background: var(--sidebar-bg);
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.sidebar-list { list-style: none; }
+.sidebar-list li a {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 500;
+  padding: 10px;
+  display: block;
+  border-radius: 4px;
+}
+
+.sidebar-list li.active {
+  background-color: rgba(47, 141, 70, 0.1);
+  border-left: 4px solid var(--primary-green);
+}
+
+.sidebar-list li a:hover:not(.active) {
+  background-color: var(--border-gray);
+}
+
+/* ==========================================================================
+   RESPONSIVE: Separate Search & Smooth Slide
+   ========================================================================== */
+.menu-toggle { display: none; }
+
+@media (max-width: 850px) {
+  .menu-toggle { display: block !important; }
+
+  /* 🟢 MOBILE SLIDE MENU */
+  .nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    background: var(--bg-main);
+    
+    /* Hidden State */
+    max-height: 0; 
+    opacity: 0;
+    visibility: hidden; /* Added to ensure it is fully non-interactable */
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    pointer-events: none;
+    margin-left: 0;
+  }
+
+  /* Active State (Toggled by JS) */
+  .nav.mobile-active {
+    max-height: 100vh !important; /* Changed to vh to ensure it expands enough */
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    padding: 20px;
+    border-bottom: 3px solid var(--primary-green);
+  }
+
+    .dropdown-content {
+        position: absolute; /* Keep it absolute so it floats over mobile nav */
+        width: 100%;
+        left: 0;
+        box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    }
+  
+  .dropdown.mobile-open .dropdown-content {
+    display: block;
+  }
+
+  /* Separate Mobile Search Bar */
+  .nav-search {
+    width: 100%;
+    margin-top: 25px;
+    margin-left: 0;
+    order: 10; /* Ensures search is at the bottom of the menu list */
+  }
+
+  .nav-search input { width: 100%; }
+
+  /* Geek Mobile Sidebar */
+  .page-layout { flex-direction: column; }
+  .left-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--border-gray);
+    padding: 15px;
+  }
+  .sidebar-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+  }
+  .sidebar-list li {
+    flex: 0 0 auto;
+    border: 1px solid var(--border-gray);
+    background: var(--sidebar-bg);
+  }
+}
+
+/* 🟢 FOOTER ALIGNMENT FIX */
+.site-footer {
+    background-color: var(--bg-main);
+    border-top: 1px solid var(--border-gray);
+    padding: 20px 0;
+    margin-top: auto; /* Pushes footer to bottom of short pages */
+    width: 100%;
+    color: var(--text-main);
+    transition: background 0.3s ease;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: center; /* Horizontally centers the text */
+    align-items: center;     /* Vertically centers the text */
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* 🟢 TABLE STRUCTURE & VISIBILITY */
+.content-area table {
+    width: 100%;
+    border-collapse: collapse; /* Ensures borders touch to form a grid */
+    margin: 25px 0;
+    font-size: 0.95rem;
+    border: 2px solid var(--border-gray); /* Visible outer border */
+}
+
+.content-area th, 
+.content-area td {
+    padding: 12px 15px;
+    border: 1px solid var(--border-gray); /* Visible internal borders */
+    text-align: left;
+    color: var(--text-main);
+}
+
+.content-area th {
+    background-color: rgba(47, 141, 70, 0.05); /* Very light green tint for headers */
+    font-weight: 700;
+}
+
+/* Dark Mode Table Adjustments */
+body.dark-mode .content-area th {
+    background-color: rgba(47, 141, 70, 0.2);
+    color: var(--primary-green);
+}
+
+/* 🟢 CODE BLOCK VISIBILITY FIX (Light & Dark) */
+pre {
+    /* Changed to light gray for a professional "well" look in Light Mode */
+    background-color: #f8f9fa !important; 
+    border: 1px solid var(--border-gray);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin: 20px 0;
+    overflow-x: auto;
+    display: block;
+}
+
+pre code {
+    /* Forced dark charcoal for maximum visibility in Light Mode */
+    color: #2d2d2d !important; 
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* 🟢 DARK MODE CODE OVERRIDES */
+body.dark-mode pre {
+    /* Matches your dark dashboard aesthetics */
+    background-color: #1e1e1e !important; 
+    border-color: #333333;
+}
+
+body.dark-mode pre code {
+    /* Forced light gray text for Dark Mode */
+    color: #e0e0e0 !important; 
+}
+
+/* 🟢 COPY BUTTON CONTRAST FIX */
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    /* Uses your brand green for visibility in light mode */
+    background-color: var(--primary-green) !important;
+    color: #ffffff !important; /* Force white text */
+    border: none;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.copy-btn:hover {
+    background-color: var(--dark-green) !important;
+}
+
+.copy-btn.copied {
+    background-color: #1e5a2d !important;
+}
+
+/* 🟢 DARK MODE ADJUSTMENTS */
+body.dark-mode .copy-btn {
+    background-color: var(--primary-green) !important;
+    color: #1a1b1e !important; /* Dark text on green button for dark mode */
+}
+
+/* Auth Styles */
+.user-greet {
+    color: var(--primary-green);
+}
+
+.logout-btn:hover {
+    color: #ff4d4d !important; /* Red highlight for logout */
+}
+
+/* Ensure progress bar is fixed at the top */
+#progress-container {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    z-index: 9999;
+}
+
+#progress-bar {
+    height: 100%;
+    background: var(--primary-green);
+    width: 0%;
+    transition: width 0.1s ease;
+}
+
+/* --- AUTH PAGES CSS --- */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 20px;
+}
+
+.auth-card {
+    background-color: var(--card-bg); /* Uses your existing card variable */
+    border: 1px solid var(--border-gray);
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.auth-card h2 {
+    color: var(--primary-green);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.auth-subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+/* Django Form Styling */
+.auth-card form p {
+    margin-bottom: 20px;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-gray);
+    background: var(--body-bg);
+    color: var(--text-main);
+    margin-top: 5px;
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: var(--primary-green);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-green);
+    transform: translateY(-2px);
+}
+
+.auth-footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Dashboard Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    align-items: start;
+}
+
+/* Button Styling (Fixes the stretch) */
+.btn-create-topic {
+    background-color: #2e7d32; /* Primary Green */
+    color: white !important;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+    display: inline-block;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-create-topic:hover {
+    background-color: #1b5e20;
+}
+
+/* Column Styling */
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 4px solid #ddd;
+}
+
+.draft-label { border-color: #9e9e9e; }
+.pending-label { border-color: #ffa000; }
+.published-label { border-color: #4caf50; }
+
+.count-badge {
+    background: #eee;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Topic Cards */
+.topic-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    transition: transform 0.2s;
+}
+
+.topic-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.topic-card h4 {
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.topic-card p {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 12px;
+}
+
+.empty-text {
+    color: #bbb;
+    text-align: center;
+    padding: 20px;
+    background: #fdfdfd;
+    border: 2px dashed #eee;
+    border-radius: 10px;
+}
+
+/* Links and Tags */
+.card-actions a, .view-link {
+    font-size: 0.9rem;
+    color: #2e7d32;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.status-tag {
+    font-size: 0.75rem;
+    background: #fff8e1;
+    color: #f57c00;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Card Item Styling */
+.item-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: 0.2s;
+}
+.item-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+
+/* Empty State Styling */
+.empty-state {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    background: #fcfcfc;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+}
+
+/* Form Input Styling */
+.custom-form input, .custom-form select, .custom-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box; /* Crucial for width */
+}
+
+.custom-form textarea { height: 200px; }
+
+/* ==========================================================================
+   CONTRIBUTOR DASHBOARD & ACTIONS (ENHANCED)
+   ========================================================================== */
+
+/* Layout & Grid */
+.dashboard-grid {
+    display: grid;
+    /* Responsive grid: auto-stacking columns */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 30px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 24px;
+}
+
+/* Status Column Headers */
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px 12px 5px;
+    margin-bottom: 20px;
+    /* margin-top: 20px; */
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-bottom: 4px solid var(--border-gray);
+    color: var(--text-main);
+}
+
+/* Status Color Coding */
+.draft-label { border-color: #9e9e9e; }
+.pending-label { border-color: #f39c12; }
+.published-label { border-color: var(--primary-green); }
+
+.count-badge {
+    background: var(--border-gray);
+    color: var(--text-main);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+/* 🟢 CONTRIBUTOR TOPIC CARDS */
+.topic-card {
+    background: var(--bg-main);
+    border: 1px solid var(--border-gray);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.topic-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    border-color: var(--primary-green);
+}
+
+/* Card Typography */
+.topic-card h4 {
+    margin-bottom: 8px;
+    font-size: 1.15rem;
+}
+
+.topic-card h4 a {
+    color: var(--primary-green);
+    text-decoration: none;
+}
+
+.topic-card .meta-info {
+    font-size: 0.85rem;
+    color: var(--text-main);
+    opacity: 0.7;
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Action Bar inside Card */
+.card-actions {
+    display: flex;
+    gap: 8px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-gray);
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--border-gray);
+    color: var(--text-main);
+    transition: 0.2s;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-icon:hover {
+    filter: brightness(0.9);
+}
+
+.btn-delete:hover {
+    background: #ff4d4d;
+    color: white;
+}
+
+/* 🟢 EMPTY STATES */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(0,0,0,0.02);
+    border: 2px dashed var(--border-gray);
+    border-radius: 12px;
+    color: var(--text-main);
+    opacity: 0.6;
+}
+
+/* 🟢 FORM & EDITOR LAYOUT */
+.contrib-form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(47, 141, 70, 0.1);
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   USER PROFILE DROPDOWN
+   ========================================================================== */
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.profile-menu {
+    right: 0 !important;
+    left: auto !important;
+}
+
+.user-greet {
+    font-weight: 700;
+    color: var(--primary-green);
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.user-greet:hover {
+    background: rgba(47, 141, 70, 0.1);
+}
+
+
+/* .profile-dropdown:hover .dropdown-content {
+    display: block;
+} */
+
+/* Individual Items */
+.dropdown-item {
+    width: 100%;
+    padding: 10px 20px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary-green);
+    color: white !important;
+}
+
+.dropdown-divider {
+    border: 0;
+    border-top: 1px solid var(--border-gray);
+    margin: 4px 0;
+}
+
+.logout-link:hover {
+    background-color: #ff4d4d !important; /* Red highlight for logout */
+}
+
+/* Small arrow indicator */
+.arrow-down::after {
+    content: '▾';
+    margin-left: 5px;
+    font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   CKEDITOR DARK MODE VISIBILITY FIX
+   ========================================================================== */
+body.dark-mode .ck.ck-toolbar {
+    background: var(--dropdown-bg) !important;
+    border-color: var(--border-gray) !important;
+}
+
+/* Force the icons/tools to be visible (Light gray/White) */
+body.dark-mode .ck.ck-toolbar .ck-icon,
+body.dark-mode .ck.ck-toolbar .ck-button {
+    color: #e0e0e0 !important;
+}
+
+/* Hover effect for tools in dark mode */
+body.dark-mode .ck.ck-button:hover {
+    background: var(--primary-green) !important;
+}
+
+/* Fix the dropdown/list background inside the editor (e.g., Font size/Heading) */
+body.dark-mode .ck.ck-list,
+body.dark-mode .ck.ck-dropdown__panel {
+    background: var(--dropdown-bg) !important;
+    border-color: var(--border-gray) !important;
+}
+
+body.dark-mode .ck.ck-list__item .ck-button:hover {
+    background: var(--primary-green) !important;
+    color: white !important;
+}
+
+/* Ensure the typing area text is visible */
+body.dark-mode .ck-content {
+    background-color: var(--bg-main) !important;
+    color: var(--text-main) !important;
+}
+
+.status-header { padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; margin-bottom: 15px; }
+.draft-label { background: rgba(136, 136, 136, 0.1); color: #888; border: 1px solid #444; }
+.pending-label { background: rgba(243, 156, 18, 0.1); color: #f39c12; border: 1px solid #f39c12; }
+.published-label { background: rgba(40, 167, 69, 0.1); color: #28a745; border: 1px solid #28a745; }
+.topic-card { background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+.count-badge { background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+
+
+/* Header Alignment */
+.moderation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    /* Removed large hardcoded horizontal margins for better responsiveness */
+    padding: 0 15px 15px 15px; 
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.title-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.shield-icon {
+    font-size: 2rem;
+}
+
+.page-title {
+    margin: 0;
+    font-weight: 800;
+    font-size: clamp(1.2rem, 5vw, 2rem); /* Fluid typography: scales with screen size */
+}
+
+.pending-count {
+    font-weight: 600;
+    color: #888;
+    white-space: nowrap;
+}
+
+/* Empty State Centering Fix */
+.empty-state-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    border: 2px dashed #d1d1d1;
+    border-radius: 12px;
+    background-color: #fafafa;
+    margin: 10px 15px; /* Added side margins for mobile air */
+}
+
+.empty-state-content {
+    text-align: center;
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+    color: #666;
+    padding: 20px;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+    .moderation-header {
+        flex-direction: column; /* Stack Title and Count */
+        align-items: flex-start;
+        gap: 10px;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .pending-count {
+        font-size: 0.9rem;
+        order: -1; /* Optionally move "0 Pending" above the title on mobile */
+    }
+
+    .empty-state-container {
+        min-height: 200px; /* Reduce height on smaller screens */
+    }
+}
+
+/* Button UI */
+.btn-review {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px; /* Larger tap target for mobile */
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+    transition: background 0.2s;
+}
+
+.btn-review:hover {
+    background-color: #218838;
+}
+
+
+/* ==========================================================================
+   FIXED DROPDOWN SYSTEM
+   ========================================================================== */
+
+/* 1. Parent Container */
+.dropdown, .profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* 2. Base Content State - Applies to ALL dropdowns */
+.dropdown-content {
+    display: none; /* Must be none for the .show class to work */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--dropdown-bg);
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+    border: 1px solid var(--border-gray);
+    border-radius: 4px;
+    padding: 10px 0;
+    z-index: 9999 !important; /* Ensure it stays above content */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+/* 3. Right-align the profile menu specifically */
+.profile-dropdown .dropdown-content {
+    right: 0;
+    left: auto;
+}
+
+/* 4. THE ONLY OPEN STATE (Toggled by JS) */
+.dropdown-content.show {
+    display: block !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
+}
+
+
+/* 6. Hover effects for items (Keep these) */
+.dropdown-content a, .dropdown-item {
+    color: var(--text-main);
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.dropdown-content a:hover, .dropdown-item:hover {
+    background-color: var(--primary-green);
+    color: white !important;
+}
+
+
+/* ==========================================================================
+   TABLET/MID-SIZE OPTIMIZATION (850px to 1078px)
+   ========================================================================== */
+@media (min-width: 851px) and (max-width: 1078px) {
+  .header-flex {
+    padding: 0 15px; /* Reduce side padding to gain space */
+    gap: 10px;
+  }
+
+  .nav {
+    margin-left: 15px; /* Bring links closer to the logo */
+    gap: 15px; /* Reduce gap between Home and Subjects */
+  }
+
+  .nav-link, .dropdown-trigger {
+    font-size: 0.9rem; /* Slightly smaller text to prevent wrapping */
+  }
+
+  .nav-search {
+    margin-left: 10px;
+  }
+
+  .nav-search input {
+    width: 120px; /* Shrink the search bar so it doesn't push items off-screen */
+    font-size: 0.85rem;
+  }
+
+  .header-controls {
+    gap: 8px; /* Tighten the far-right buttons */
+  }
+
+  /* Ensure the sidebar doesn't eat too much horizontal space on mid-size screens */
+  :root {
+    --sidebar-width: 220px; 
+  }
+}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results for "{{ query }}"{% endblock %}
+
+{% block content %}
+<div class="page-layout">
+    <aside class="left-sidebar">
+        <h3 style="margin-bottom: 15px; color: var(--primary-green);">Refine Search</h3>
+        <ul class="sidebar-list">
+            <li class="active"><a href="/">🏠 Back to Home</a></li>
+            {% for subject in nav_subjects %}
+            <li><a href="{{ subject.get_absolute_url }}">📚 {{ subject.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+    <main class="content-area">
+        <h2 class="content-title">Search Results for "{{ query }}"</h2>
+        <p style="margin-bottom: 25px; color: #666;">Found {{ results|length }} result(s)</p>
+
+        {% if results %}
+            <div class="latest-list">
+                {% for topic in results %}
+                    <article class="learning-card">
+                        <h3>
+                            <a href="{{ topic.get_absolute_url }}">
+                                {{ topic.title }}
+                            </a>
+                        </h3>
+                        <div class="content-meta">
+                            {{ topic.subject.name }} · Day {{ topic.day_number }} · {{ topic.difficulty }}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="learning-card">
+                <p>No results found for "<strong>{{ query }}</strong>". Try checking your spelling or searching for a broader term.</p>
+            </div>
+        {% endif %}
+    </main>
+</div>
+{% endblock %}

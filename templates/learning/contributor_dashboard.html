@@ -1,0 +1,92 @@
+{% extends "base.html" %} 
+{% block content %}
+<div class="container mt-5" style="padding: 0 24px; margin-top: 50px !important">
+  <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; flex-wrap: wrap;">
+    <h1 style="font-weight: 800; color: var(--text-main); margin: 0">Contributor Dashboard</h1>
+    <a href="{% url 'topic_create' %}" class="btn-create-topic">+ Create New Topic</a>
+  </div>
+
+  <div class="dashboard-grid">
+    
+    <div class="status-column">
+      <div class="status-header draft-label">
+        <span>📝 Drafts</span>
+        <span class="count-badge">{{ drafts|length }}</span>
+      </div>
+      {% for topic in drafts %}
+      <div class="topic-card">
+        <a href="{% url 'topic_edit' topic.pk %}" class="card-title">{{ topic.title }}</a>
+        <div class="meta-info">{{ topic.subject.name }} • Updated {{ topic.updated_at|date:"M d" }}</div>
+        <div class="card-actions">
+          <a href="{% url 'topic_edit' topic.pk %}" class="btn-icon">✏️ Edit</a>
+          <form id="delete-form-{{ topic.pk }}" action="{% url 'topic_delete' topic.pk %}" method="post" style="display: none;">{% csrf_token %}</form>
+          <button class="btn-icon btn-delete" onclick="confirmDelete('{{ topic.pk }}', '{{ topic.title|escapejs }}')">🗑️ Delete</button>
+        </div>
+      </div>
+      {% empty %}<div class="empty-state">No drafts.</div>{% endfor %}
+    </div>
+
+    <div class="status-column">
+      <div class="status-header rejected-label">
+        <span>❌ Revisions</span>
+        <span class="count-badge">{{ rejected|length }}</span>
+      </div>
+      {% for topic in rejected %}
+      <div class="topic-card" style="border-left: 4px solid var(--rejected-red);">
+        <a href="{% url 'topic_edit' topic.pk %}" style="color: var(--rejected-red) !important;" class="card-title">{{ topic.title }}</a>
+        
+        <div class="rejection-box">
+          <span class="rejection-title">Feedback:</span>
+          {{ topic.rejection_notes|default:"Please review the content and resubmit." }}
+        </div>
+
+        <div class="card-actions">
+          <a href="{% url 'topic_edit' topic.pk %}" class="btn-icon" style="background: var(--rejected-red); color: white;">✏️ Fix & Resubmit</a>
+        </div>
+      </div>
+      {% empty %}<div class="empty-state">Clear!</div>{% endfor %}
+    </div>
+
+    <div class="status-column">
+      <div class="status-header pending-label">
+        <span>⌛ Pending</span>
+        <span class="count-badge">{{ pending|length }}</span>
+      </div>
+      {% for topic in pending %}
+      <div class="topic-card">
+        <span style="font-weight: 700; color: var(--text-main); font-size: 1.15rem;">{{ topic.title }}</span>
+        <div class="meta-info" style="margin-top: 5px;">
+          {{ topic.subject.name }} • <span style="color: #f39c12">Under Review</span>
+        </div>
+      </div>
+      {% empty %}<div class="empty-state">Nothing pending.</div>{% endfor %}
+    </div>
+
+    <div class="status-column">
+      <div class="status-header published-label">
+        <span>✅ Published</span>
+        <span class="count-badge">{{ approved|length }}</span>
+      </div>
+      {% for topic in approved %}
+      <div class="topic-card">
+        <a href="{{ topic.get_absolute_url }}" class="card-title">{{ topic.title }}</a>
+        <div class="meta-info">{{ topic.subject.name }} • <span style="color: var(--primary-green)">Live</span></div>
+        <div class="card-actions">
+          <a href="{{ topic.get_absolute_url }}" class="btn-icon">👁️ View</a>
+          <a href="{% url 'topic_edit' topic.pk %}" class="btn-icon">✏️ Edit</a>
+        </div>
+      </div>
+      {% empty %}<div class="empty-state">No live items.</div>{% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+function confirmDelete(id, title) {
+    if (confirm("Delete '" + title + "'? This cannot be undone.")) {
+        document.getElementById('delete-form-' + id).submit();
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,175 @@
+/* ==========================================================================
+   PRISMJS MODERN DARK THEME 
+   ========================================================================== */
+
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #f8f8f2;
+    background: none;
+    font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.95em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.6;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+/* Background and Padding */
+pre[class*="language-"] {
+    padding: 1.5em;
+    margin: 1.5em 0;
+    overflow: auto;
+    border-radius: 8px;
+    background: #282a36; /* Dracula-style dark background */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Inline code styling */
+:not(pre) > code[class*="language-"] {
+    padding: .2em .4em;
+    border-radius: .3em;
+    white-space: normal;
+    background: #f1f3f5;
+    color: #d63384; /* Pinkish color for inline snippets */
+    font-size: 0.9em;
+}
+
+/* Token Colors (Syntax Highlighting) */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6272a4;
+}
+
+.token.punctuation {
+    color: #f8f8f2;
+}
+
+.token.namespace {
+    opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #ff79c6;
+}
+
+.token.boolean,
+.token.number {
+    color: #bd93f9;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #50fa7b;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #ff79c6;
+}
+
+.token.function,
+.token.class-name {
+    color: #8be9fd;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #f1fa8c;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+
+/* Selection highlight */
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection,
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection {
+    text-shadow: none;
+    background: #44475a;
+}
+
+code[class*="language-"]::selection, code[class*="language-"] ::selection,
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection {
+    text-shadow: none;
+    background: #44475a;
+}
+
+/* --- Copy Button Styling --- */
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Segoe UI', sans-serif;
+    z-index: 10;
+}
+
+.copy-btn:hover {
+    background: var(--primary-green, #2f8d46);
+    border-color: var(--primary-green, #2f8d46);
+}
+
+.copy-btn.copied {
+    background: #4caf50;
+    border-color: #4caf50;
+}
+
+/* Ensure code blocks have enough padding on the right for the button */
+pre[class*="language-"] {
+    padding-right: 60px !important;
+}
+/* Custom override for PrismJS to respect Dark Mode */
+pre[class*="language-"] {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-gray) !important;
+}
+
+body.dark-mode pre[class*="language-"] code {
+    color: #e0e0e0 !important;
+    text-shadow: none !important;
+}

@@ -1,0 +1,17 @@
+# 1. Environment Variables (Critical Security)
+.env
+
+# 2. Database (Free hosts use PostgreSQL, not this file)
+db.sqlite3
+
+# 3. Python cache (Speeds up local code, but useless on GitHub)
+__pycache__/
+*.py[cod]
+
+# 4. Media and Static (Media is often hosted on Cloudinary)
+media/
+static_root/
+
+# 5. OS files
+# .DS_Store (Mac)
+Thumbs.db (Windows)

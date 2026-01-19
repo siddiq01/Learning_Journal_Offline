@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Learning Journal{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/article.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/prism.css' %}" />
+
+    <script>
+      /**
+       * BACK-BUTTON CACHE FIX
+       */
+      window.addEventListener("pageshow", function (event) {
+        if (
+          event.persisted ||
+          (window.performance && window.performance.navigation.type === 2)
+        ) {
+          window.location.reload();
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-flex">
+        <div class="logo">
+          <a href="{% url 'home' %}">📘 My Learning Journal</a>
+        </div>
+
+        <div class="header-controls">
+          <button
+            class="menu-toggle"
+            id="hamburger-btn"
+            aria-label="Toggle navigation"
+          >
+            ☰
+          </button>
+        </div>
+
+        <nav class="nav" id="main-nav">
+          {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'signup' %}
+
+          <a href="{% url 'home' %}" class="nav-link">Home</a>
+
+          <div class="dropdown">
+            <span class="dropdown-trigger">Subjects ▾</span>
+            <div class="dropdown-content">
+              {% for subject in nav_subjects %}
+              <a href="{% url 'subject_topics' subject.slug %}"
+                >{{ subject.name }}</a
+              >
+              {% empty %}
+              <a href="#">No Subjects Added</a>
+              {% endfor %}
+            </div>
+          </div>
+
+          <form action="{% url 'search' %}" method="get" class="nav-search">
+            <input
+              type="text"
+              name="q"
+              placeholder="Search topics..."
+              required
+            />
+            <button type="submit">Search</button>
+          </form>
+
+          <a href="javascript:void(0);" id="nav-theme-toggle" class="nav-link">
+            <span id="nav-theme-text">🌙 Dark Mode</span>
+          </a>
+
+          {% endif %}
+
+          <div class="auth-group">
+            {% if user.is_authenticated %}
+            <div class="dropdown profile-dropdown">
+              <span class="dropdown-trigger user-greet">
+                Hi, {{ user.username }} ▾
+              </span>
+              <div class="dropdown-content profile-menu">
+                <button id="theme-toggle" class="dropdown-item theme-btn">
+                  <span class="theme-icon">🌙 Dark Mode</span>
+                </button>
+                <hr class="dropdown-divider" />
+
+                <a href="{% url 'contributor_dashboard' %}" class="dropdown-item"
+                  >📊 My Dashboard</a
+                >
+
+                {% if user.profile.role == 'moderator' or user.profile.role == 'admin' %}
+                <a href="{% url 'moderation_queue' %}" class="dropdown-item"
+                  >🛡️ Moderation Queue</a
+                >
+                {% endif %}
+
+                <hr class="dropdown-divider" />
+                <form
+                  action="{% url 'logout' %}"
+                  method="post"
+                  style="display: block; width: 100%"
+                >
+                  {% csrf_token %}
+                  <button
+                    type="submit"
+                    class="dropdown-item logout-link"
+                    style="
+                      color: #ff4d4d;
+                      width: 100%;
+                      text-align: left;
+                      background: none;
+                      border: none;
+                      cursor: pointer;
+                    "
+                  >
+                    🚪 Logout
+                  </button>
+                </form>
+              </div>
+            </div>
+            {% else %}
+            <div
+              class="auth-links-wrapper"
+              style="display: flex; align-items: center; gap: 15px"
+            >
+              {% if request.resolver_match.url_name == 'login' %}
+              <a href="{% url 'signup' %}" class="nav-link">Sign Up</a>
+              {% elif request.resolver_match.url_name == 'signup' %}
+              <a href="{% url 'login' %}" class="nav-link">Login</a>
+              {% else %}
+              <a href="{% url 'login' %}" class="nav-link">Login</a>
+              <a href="{% url 'signup' %}" class="nav-link">Sign Up</a>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </nav>
+      </div>
+
+      <div id="progress-container">
+        <div id="progress-bar"></div>
+      </div>
+    </header>
+
+    <main>
+      {% if messages %}
+      <div class="container" style="margin-top: 20px">
+        {% for message in messages %}
+        <div
+          class="alert alert-{{ message.tags }}"
+          style="
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            background: #333;
+            color: #fff;
+            border-left: 5px solid #28a745;
+          "
+        >
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <p>
+          &copy; {% now "Y" %} Built with Django · Personal Learning & Projects
+        </p>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/prism.js' %}"></script>
+    <script src="{% static 'js/copy.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

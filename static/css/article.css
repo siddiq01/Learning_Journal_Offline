@@ -1,0 +1,93 @@
+/* ==========================================================================
+   CONTENT AREA & PROFESSIONAL CARDS
+   ========================================================================= */
+
+.content-area {
+    flex: 1;
+    padding: 40px 60px;
+    max-width: 1000px;
+}
+
+/* IMAGE FIX: Prevents horizontal scrolling */
+.content-body img {
+    max-width: 100%; /* Important: Restricts image to viewport width */
+    height: auto;
+    display: block;
+    margin: 30px 0;
+    border-radius: 8px;
+}
+
+.content-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* META TAG PILLS: Modern UI badges */
+.content-meta {
+    background: #f1f3f5;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+/* HOME PAGE: Fixes bullet points with Card Design */
+.latest-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.learning-card {
+    background: #fff;
+    border: 1px solid var(--border-gray);
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.learning-card:hover {
+    border-color: var(--primary-green);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+}
+
+.learning-card h3 { margin: 0 0 10px 0; }
+.learning-card h3 a {
+    color: #222;
+    font-size: 1.4rem;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.learning-card h3 a:hover { color: var(--primary-green); }
+
+
+/* Add these to the bottom of article.css */
+@media (max-width: 600px) {
+    .learning-card {
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .learning-card h3 a {
+        font-size: 1.2rem;
+    }
+
+    /* Adjust code blocks for small screens */
+    pre[class*="language-"] {
+        padding: 1em !important;
+        font-size: 0.85em;
+        border-radius: 4px;
+    }
+
+    /* Ensure images take up full available width */
+    .content-body img {
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+}

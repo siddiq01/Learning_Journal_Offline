@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="page-layout">
+  <aside class="left-sidebar">
+    <h3 class="sidebar-heading" style="color: var(--primary-green); margin-bottom: 15px;">
+      {{ topic.subject.name }} Tutorial
+    </h3>
+
+    <ul class="sidebar-list">
+      {% for t in sidebar_topics %}
+      <li class="{% if t.slug == topic.slug %}active{% endif %}">
+        <a href="{% url 'topic_detail' topic.subject.slug t.slug %}">
+          {{ t.title }}
+        </a>
+      </li>
+      {% empty %}
+      <p class="empty-text">No topics found for this subject.</p>
+      {% endfor %}
+    </ul>
+
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-gray);">
+      <a href="{% url 'subject_topics' topic.subject.slug %}"
+        style="text-decoration: none; color: var(--text-main); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+        <span
+          style="background-color: #4A90E2; color: white; border-radius: 4px; padding: 2px 6px; font-size: 14px;">&larr;</span>
+        Back to {{ topic.subject.name }} Topics
+      </a>
+    </div>
+  </aside>
+
+  <main class="content-area" style="padding: 30px; flex-grow: 1;">
+    <article class="topic-article">
+      <h1 class="content-title" style="color: var(--primary-green); font-size: 2.5rem; margin-bottom: 20px;">
+        {{ topic.title }}
+      </h1>
+
+      <hr style="border: 0; border-top: 1px solid var(--border-gray); margin-bottom: 30px;">
+
+      <div class="content-body ck-content">
+        {{ topic.content|safe }}
+      </div>
+
+      <div class="nav-buttons"
+        style="display: flex; justify-content: space-between; margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border-gray);">
+        
+        {% if previous_topic %}
+        <a href="{% url 'topic_detail' topic.subject.slug previous_topic.slug %}" class="btn-create-topic"
+          style="background-color: var(--border-gray); color: var(--text-main) !important;">
+          &larr; Previous
+        </a>
+        {% else %}
+        <div></div> 
+        {% endif %}
+
+        {% if next_topic %}
+        <a href="{% url 'topic_detail' topic.subject.slug next_topic.slug %}" class="btn-create-topic">
+          Next Topic &rarr;
+        </a>
+        {% endif %}
+      </div>
+    </article>
+  </main>
+</div>
+
+<style>
+    /* 🟢 CKEditor Content Styling Overrides */
+    
+    /* Ensure code blocks use your dark 'geek' theme */
+    .ck-content pre {
+        background-color: #1e1e1e !important;
+        color: #e0e0e0 !important;
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 20px 0;
+    }
+
+    .ck-content code {
+        font-family: 'Consolas', monospace;
+        background-color: rgba(0,0,0,0.05);
+        padding: 2px 4px;
+        border-radius: 4px;
+    }
+
+    /* Handle Images from CKEditor */
+    .ck-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    /* Preserve Table visibility */
+    .ck-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    
+    .ck-content table td, .ck-content table th {
+        border: 1px solid var(--border-gray);
+        padding: 12px;
+    }
+
+    /* Blockquotes */
+    .ck-content blockquote {
+        border-left: 5px solid var(--primary-green);
+        padding-left: 20px;
+        font-style: italic;
+        margin: 20px 0;
+        color: var(--text-main);
+        opacity: 0.8;
+    }
+</style>
+{% endblock %}

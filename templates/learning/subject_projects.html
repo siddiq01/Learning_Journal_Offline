@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Projects in {{ subject.name }} | Learning Journal{% endblock %}
+
+{% block content %}
+<div class="page-layout">
+    <aside class="left-sidebar">
+        <h3 class="sidebar-heading">Navigation</h3>
+        <ul class="sidebar-list">
+            {% for nav_subject in nav_subjects %}
+            <li class="{% if nav_subject.id == subject.id %}active{% endif %}">
+                <a href="{% url 'subject_topics' nav_subject.slug %}">
+                    📚 {{ nav_subject.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-gray);">
+            <a href="{% url 'subject_topics' subject.slug %}" class="sidebar-link" style="color: var(--primary-green); font-weight: bold; display: flex; align-items: center; gap: 8px;">
+                <span style="background-color: #4A90E2; color: white; border-radius: 4px; padding: 2px 6px; font-size: 14px;">&larr;</span>
+                Back to {{ subject.name }} Tutorial
+            </a>
+        </div>
+    </aside>
+
+    <main class="content-area">
+        <header class="subject-header">
+            <h1 class="content-title">Projects: {{ subject.name }}</h1>
+            <p class="subject-description">Practical applications and hands-on projects for {{ subject.name }}.</p>
+        </header>
+
+        <hr class="section-divider" style="margin: 30px 0; border: 0; border-top: 1px solid var(--border-gray);">
+
+        {% if projects %}
+            <div class="project-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px;">
+                {% for project in projects %}
+                    <article class="learning-card">
+                        <h3>
+                            <a href="{% url 'project_detail' project.id %}">
+                                {{ project.title }}
+                            </a>
+                        </h3>
+                        
+                        <p style="color: #666; line-height: 1.5; margin: 10px 0;">
+                            {{ project.description|truncatewords:20 }}
+                        </p>
+
+                        <div class="content-meta">
+                            <span class="status-tag" style="background: rgba(74, 144, 226, 0.1); color: #4A90E2; padding: 4px 10px; border-radius: 4px;">
+                                <strong>{{ project.status }}</strong>
+                            </span>
+                            <span class="date-text" style="margin-left: 10px;">{{ project.tech_stack }}</span>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state" style="text-align: center; padding: 50px; border: 2px dashed var(--border-gray); border-radius: 12px;">
+                <p style="color: #999; font-size: 1.1rem;">No projects have been added for this subject yet. Check back soon!</p>
+            </div>
+        {% endif %}
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="contrib-form-container">
+    <div class="dashboard-header" style="margin-bottom: 30px;">
+        <h1 style="font-weight: 800; color: var(--text-main);">
+            {% if form.instance.pk %}Edit Topic{% else %}Create New Topic{% endif %}
+        </h1>
+        <p style="color: var(--text-main); opacity: 0.7;">Fill in the details below to share your knowledge.</p>
+    </div>
+
+    <form method="post" class="custom-form">
+        {% csrf_token %}
+        
+        {{ form.media }}
+        
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" style="display: block; font-weight: 700; margin-bottom: 8px;">
+                    {{ field.label }}
+                </label>
+                
+                <div class="input-wrapper">
+                    {{ field }}
+                </div>
+
+                {% if field.help_text %}
+                    <small style="display: block; margin-top: 5px; opacity: 0.6;">{{ field.help_text }}</small>
+                {% endif %}
+                
+                {% for error in field.errors %}
+                    <p style="color: #ff4d4d; font-size: 0.8rem; margin-top: 5px;">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <div style="display: flex; gap: 15px; margin-top: 40px;">
+            <button type="submit" class="btn-create-topic" style="border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <span>💾</span> Save Topic
+            </button>
+            <a href="{% url 'contributor_dashboard' %}" class="btn-icon" style="padding: 12px 24px; display: flex; align-items: center; text-decoration: none;">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    /* 🟢 CKEditor 5 Theme Fix: Ensures the editor looks good in your layout */
+    .ck-editor__editable {
+        min-height: 300px;
+        background-color: var(--bg-main) !important;
+        color: var(--text-main) !important;
+    }
+    
+    /* Fix for dark mode toolbar if needed */
+    body.dark-mode .ck.ck-toolbar {
+        background: var(--dropdown-bg);
+        border-color: var(--border-gray);
+    }
+    body.dark-mode .ck.ck-button:hover {
+        background: var(--primary-green);
+    }
+</style>
+{% endblock %}

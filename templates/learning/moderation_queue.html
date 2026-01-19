@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="moderation-header">
+        <div class="title-group">
+            <span class="shield-icon">🛡️</span>
+            <h1 class="page-title">Moderation Queue</h1>
+        </div>
+        <span class="pending-count">{{ pending_topics|length }} Pending</span>
+    </div>
+    
+    <div class="dashboard-grid">
+        {% for topic in pending_topics %}
+        <div class="topic-card">
+            <div class="card-body">
+                <span class="subject-badge">{{ topic.subject.name }}</span>
+                <h3 class="topic-title">{{ topic.title }}</h3>
+                <p class="author-info">Proposed by <strong>@{{ topic.author.username }}</strong></p>
+            </div>
+
+            <div class="topic-meta">
+                <span class="time-stamp">Submitted {{ topic.created_at|naturaltime }}</span>
+                <a href="{% url 'moderation_review' topic.pk %}" class="btn-review">Review Now</a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state-container">
+            <div class="empty-state-content">
+                <p>🎉 All caught up! No topics are currently pending review.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

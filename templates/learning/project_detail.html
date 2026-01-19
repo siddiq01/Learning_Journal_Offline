@@ -1,0 +1,103 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block title %}{{ project.title }} | Project Case Study{% endblock %} 
+
+{% block content %}
+<div class="page-layout">
+    <aside class="left-sidebar">
+        <h3 class="sidebar-heading">Quick Info</h3>
+        <ul class="sidebar-list">
+            <li>
+                <strong>Status:</strong>
+                <span class="status-tag" style="background: #eef; color: #4a90e2; padding: 2px 8px; border-radius: 4px;">
+                    {{ project.status }}
+                </span>
+            </li>
+            <li style="margin-top: 10px">
+                <strong>Subject:</strong> {{ project.subject.name }}
+            </li>
+            {% if project.category %}
+            <li><strong>Category:</strong> {{ project.category.name }}</li>
+            {% endif %}
+            <li style="margin-top: 10px">
+                <strong>Added:</strong> {{ project.created_at|date:"M d, Y" }}
+            </li>
+        </ul>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border-gray);" />
+
+        <div class="sidebar-navigation">
+            <a href="{% url 'subject_projects' project.subject.slug %}" style="text-decoration: none; color: var(--primary-green); font-weight: bold; display: flex; align-items: center; gap: 8px;">
+                <span style="background-color: var(--primary-green); color: white; border-radius: 4px; padding: 2px 6px; font-size: 14px;">&larr;</span>
+                All {{ project.subject.name }} Projects
+            </a>
+        </div>
+    </aside>
+
+    <main class="content-area" style="padding: 30px; flex-grow: 1">
+        <article class="topic-article">
+            <header style="margin-bottom: 40px">
+                <h1 class="content-title" style="color: var(--primary-green); font-size: 2.5rem; margin-bottom: 10px;">
+                    {{ project.title }}
+                </h1>
+                <div class="content-meta" style="color: #888; font-size: 1rem">
+                    Project by <strong>{{ project.user.username }}</strong> · {{ project.tech_stack }}
+                </div>
+            </header>
+
+            <section class="learning-card" style="margin-bottom: 30px; border-left: 5px solid var(--primary-green)">
+                <h3 style="color: var(--primary-green); margin-bottom: 15px">Project Overview</h3>
+                <div style="line-height: 1.7; color: #444">
+                    {{ project.description|linebreaks }}
+                </div>
+            </section>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                {% if project.problem_statement %}
+                <section class="learning-card" style="margin: 0">
+                    <h3 style="margin-bottom: 10px">The Challenge</h3>
+                    <p style="font-size: 0.95rem">
+                        {{ project.problem_statement|linebreaks }}
+                    </p>
+                </section>
+                {% endif %} 
+                
+                {% if project.solution_approach %}
+                <section class="learning-card" style="margin: 0">
+                    <h3 style="margin-bottom: 10px">The Solution</h3>
+                    <p style="font-size: 0.95rem">
+                        {{ project.solution_approach|linebreaks }}
+                    </p>
+                </section>
+                {% endif %}
+            </div>
+
+            <section class="learning-card" style="background-color: #f9f9f9">
+                <h3 style="font-size: 1.1rem; margin-bottom: 10px">Technology Stack</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap">
+                    {% for tech in project.tech_stack.split %}
+                    <span style="background: #fff; border: 1px solid var(--border-gray); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                        {{ tech|cut:"," }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <footer class="project-links" style="margin-top: 40px; display: flex; gap: 20px; border-top: 1px solid var(--border-gray); padding-top: 30px;">
+                {% if project.github_url %}
+                <a href="{{ project.github_url }}" target="_blank" class="btn-create-topic" style="background: #24292e; color: white !important; border: none; text-decoration: none;">
+                    📂 View Code on GitHub
+                </a>
+                {% endif %} 
+                
+                {% if project.live_demo_url %}
+                <a href="{{ project.live_demo_url }}" target="_blank" class="btn-create-topic" style="text-decoration: none">
+                    🚀 Launch Live Demo
+                </a>
+                {% endif %}
+            </footer>
+        </article>
+    </main>
+</div>
+{% endblock %}

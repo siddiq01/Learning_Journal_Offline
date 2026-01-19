@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Home | Learning Journal{% endblock %}
+
+{% block content %}
+<div class="page-layout">
+    <aside class="left-sidebar">
+        <h3 style="margin-bottom: 15px; color: var(--primary-green);">Navigation</h3>
+        <ul class="sidebar-list">
+            <li class="active"><a href="{% url 'home' %}">🏠 Recent Posts</a></li>
+            
+            {% if user.is_authenticated %}
+                {% if user.profile.role != 'reader' %}
+                    <li><a href="{% url 'contributor_dashboard' %}">📊 My Dashboard</a></li>
+                {% endif %}
+                
+                {% if user.profile.role == 'moderator' or user.profile.role == 'admin' %}
+                    <li><a href="{% url 'moderation_queue' %}" style="color: #ffc107;">⚖️ Moderation Queue</a></li>
+                {% endif %}
+            {% endif %}
+
+            <hr style="border: 0; border-top: 1px solid #444; margin: 15px 0;">
+            
+            <h4 style="font-size: 0.9rem; color: #888; margin-bottom: 10px;">SUBJECTS</h4>
+            {% for subject in nav_subjects %}
+            <li><a href="{{ subject.get_absolute_url }}">📚 {{ subject.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+    <div class="content-area">
+        <h1 class="content-title">Latest Learnings</h1>
+
+        {% if topics %}
+            <div class="latest-list">
+                {% for topic in topics %}
+                    <article class="learning-card">
+                        <h3>
+                            <a href="{{ topic.get_absolute_url }}">{{ topic.title }}</a>
+                        </h3>
+                        <div class="content-meta">
+                            <span class="subject-tag">{{ topic.subject.name }}</span>
+                            
+                            {% if topic.day_number %}
+                                · <span>Day {{ topic.day_number }}</span>
+                            {% endif %}
+                            
+                            {% if topic.difficulty %}
+                                · <span class="difficulty-tag">{{ topic.difficulty }}</span>
+                            {% endif %}
+                            
+                            · <span class="text-muted">{{ topic.created_at|date:"M d" }}</span>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="learning-card">
+                <p>No topics published yet. Start documenting your journey!</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

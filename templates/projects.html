@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Projects | {{ subject.name }}{% endblock %}
+
+{% block content %}
+<div class="page-layout">
+    <aside class="left-sidebar">
+        <h3 class="sidebar-heading" style="color: var(--primary-green); margin-bottom: 15px;">Subjects</h3>
+        <ul class="sidebar-list">
+            {% for nav_subject in nav_subjects %}
+            <li class="{% if nav_subject.slug == subject.slug %}active{% endif %}">
+                <a href="{% url 'subject_topics' nav_subject.slug %}">
+                    📚 {{ nav_subject.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-gray);">
+            <a href="{% url 'home' %}" style="text-decoration: none; color: var(--primary-green); font-weight: bold; display: flex; align-items: center; gap: 8px;">
+                🏠 Back Home
+            </a>
+        </div>
+    </aside>
+
+    <main class="content-area" style="padding: 30px; flex-grow: 1;">
+        <header class="subject-header" style="margin-bottom: 30px;">
+            <h1 class="content-title" style="color: var(--primary-green); font-size: 2.5rem; margin-bottom: 10px;">
+                Projects — {{ subject.name }}
+            </h1>
+            <p style="color: #666;">Explore practical applications and implementations for {{ subject.name }}.</p>
+        </header>
+
+        <hr style="border: 0; border-top: 1px solid var(--border-gray); margin-bottom: 30px;">
+
+        {% if projects %}
+        <div class="latest-list">
+            {% for project in projects %}
+            <article class="learning-card" style="margin-bottom: 25px; padding: 20px; border: 1px solid var(--border-gray); border-radius: 8px;">
+                <h3 style="margin-bottom: 10px;">
+                    <a href="{% url 'project_detail' project.id %}" style="text-decoration: none; color: var(--text-main); font-size: 1.4rem;"> 
+                        {{ project.title }} 
+                    </a>
+                </h3>
+
+                <p style="margin: 10px 0; color: #555; line-height: 1.6;">
+                    {{ project.description|truncatewords:30 }}
+                </p>
+
+                <div class="content-meta" style="font-size: 0.9rem; color: #777; margin-top: 15px;">
+                    <span style="background: #f0f0f0; padding: 3px 10px; border-radius: 4px; margin-right: 10px;">
+                        <strong>Status:</strong> {{ project.status }}
+                    </span>
+                    <span><strong>Stack:</strong> {{ project.tech_stack }}</span>
+                </div>
+
+                <div class="project-links" style="margin-top: 20px; display: flex; gap: 20px; border-top: 1px dotted var(--border-gray); padding-top: 15px;">
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank" style="color: #333; font-weight: 600; text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;">
+                        <span>📂</span> GitHub
+                    </a>
+                    {% endif %} 
+                    
+                    {% if project.live_demo_url %}
+                    <a href="{{ project.live_demo_url }}" target="_blank" style="color: var(--primary-green); font-weight: 600; text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;">
+                        <span>🚀</span> Live Demo
+                    </a>
+                    {% endif %}
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state" style="text-align: center; padding: 50px; border: 1px dashed var(--border-gray); border-radius: 8px;">
+            <p style="color: #999;">No projects added yet for this subject.</p>
+        </div>
+        {% endif %}
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Login · Learning Journal{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h2 class="auth-title">Welcome Back</h2>
+        <p class="auth-subtitle"> Login to continue your learning journey </p>
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <span class="error-text">{{ form.username.errors|striptags }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <div class="label-wrapper" style="display: flex; justify-content: space-between;">
+                    {{ form.password.label_tag }}
+                    <a href="{% url 'password_reset' %}" class="forgot-link" style="font-size: 0.85rem;">Forgot?</a>
+                </div>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <span class="error-text">{{ form.password.errors|striptags }}</span>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>
+                Don’t have an account?
+                <a href="{% url 'signup' %}">Create one</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    {% if user.is_authenticated %}
+        window.location.replace("{% url 'home' %}");
+    {% endif %}
+
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+</script>
+{% endblock %}
